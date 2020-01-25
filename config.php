@@ -1,0 +1,9 @@
+<?php
+$dbhost = "inscribe.productions";
+$dbuser = "cuhackit2020";
+$dbpass = "gurgle";
+$database = "hackbox_tv";
+
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+?>
