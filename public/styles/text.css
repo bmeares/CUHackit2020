@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Anton|Noto+Sans&display=swap');
+
+:root {
+    --color0: #F6F7EB;
+    --color1: #FFA916;
+    --color2: #6D676E;
+    --color3: #1B1B1E;
+    --color4: #96031A;
+}
+
+h1 {
+    font-family: 'Anton', sans-serif;
+    color: var(--color3);
+    margin: 0;
+}
+
+button {
+    font-family: 'Noto Sans', sans-serif;
+}
