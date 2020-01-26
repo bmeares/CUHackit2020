@@ -19,3 +19,14 @@ function register() {
         }
     })
 }
+
+function gameid() {
+    $.ajax({
+        type: 'POST',
+        url: '',
+        data: $('form').serialize(),
+        success: function(data) {
+            console.log(data);
+        }
+    })
+}
