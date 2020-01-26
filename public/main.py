@@ -9,13 +9,15 @@ from flask import Flask, render_template, jsonify, request, session, redirect, s
 from config import Config
 from login import register_user, login_user, message_format, dest_format, logged_in
 from Trivia import Trivia
+from HackerFall import HackerFall
 from get_key import get_key
 from sql import engine
 app = Flask(__name__)
 
 ### possible games
 games = {
-    'Trivia':Trivia
+    'Trivia':Trivia,
+    "HackerFall":HackerFall,
 }
 current_games = {}
 
