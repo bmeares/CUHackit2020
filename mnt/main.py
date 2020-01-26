@@ -9,6 +9,7 @@ from flask import Flask, render_template, jsonify, request, session, redirect
 from config import Config
 from login import register_user, login_user, message_format
 from Trivia import Trivia
+from get_key import get_key
 app = Flask(__name__)
 
 ### possible games
@@ -42,7 +43,7 @@ def login():
         session['PlayerID'] = PersonID
         return message_format('Successfully logged in.')
     else: return message_format('Incorrect password')
-    
+
 
 @app.route('/foo', methods=['POST', 'GET']) 
 def foo():
@@ -63,18 +64,39 @@ def register():
 @app.route('/info', methods=['GET', 'POST'])
 def info():
     data = request.json
+    key = session['key']
     username = session['username']
-    if request.method == "GET":
-        return get_info(username)
-    elif request.method == "POST":
-        return post_info(username, data)
-
+    if key in current_games:
+        if request.method == "GET":
+            return current_games[key].get_info(username)
+        elif request.method == "POST":
+            return current_games[key].post_info(data, username)
+    else:
+        return message_format("Game not valid.")
 
 @app.route('/new_game', methods=['POST'])
 def new_game():
     data = request.json
     username = session['username']
     game_type = data['game']
+    key = get_key(current_games)
+    if game_type in games:
+        current_games[key] = games[game_type](engine)
+        session['key'] = key
+        return redirect('')
+    else return message_format('Invalid game type')
+
+@app.route('/join_game', methods=['POST'])
+def join_game():
+    data = request.json
+    username = session['username']
+    key = data["key"]
+    if key in current_games:
+	session['key'] = key
+        return redirect('')
+    else return message_format('Invalid game type')
+
+
 
 if __name__== '__main__':
     app.config.from_object(Config)
