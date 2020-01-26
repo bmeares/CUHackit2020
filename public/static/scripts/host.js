@@ -31,6 +31,5 @@ function pull() {
 }
 
 function start() {
-    console.log('mafia2');
     setInterval(pull, 1000);
 }

@@ -52,12 +52,6 @@ def login():
         #  return message_format('Successfully logged in.')
     else: return message_format('Incorrect password')
 
-
-@app.route('/foo', methods=['POST', 'GET']) 
-def foo():
-    data = request.json
-    return jsonify(data)
-
 @app.route('/register_user', methods=['POST']) 
 def register():
     if logged_in(): return render_static('/hostOrJoin')
@@ -74,7 +68,7 @@ def register():
 
 @app.route('/info', methods=['GET', 'POST'])
 def info():
-    if not logged_in(): return render_static('/')
+    #  if not logged_in(): return render_template('/index.html')
     data = request.json
     key = session['key']
     username = session['username']
@@ -101,11 +95,15 @@ def new_game():
 
 @app.route('/join_game', methods=['POST'])
 def join_game():
-    data = request.json
+    #  data = request.json
+    data = request.form
     username = session['username']
-    key = data["key"]
+    key = data["gameid"]
+
     if key in current_games:
         session['key'] = key
+        session['gameid'] = key
+        current_games[key].add_player(username)
         return dest_format('/phoneGame')
     else: return message_format('Invalid game type')
 
