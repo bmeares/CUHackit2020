@@ -3,6 +3,8 @@
     <head>
         <link rel="stylesheet" href="styles/base.css">
         <link rel="stylesheet" href="styles/text.css">
+        <script src="scripts/users.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Login | Hackbox</title>
     </head>
 
@@ -18,7 +20,8 @@
                 <br>
                 <input class="userInfo" type="password" name="password" placeholder="Password">
                 <br>
-                <input class="userBtn" type="submit" value="Submit">
+                <input class="userBtn" id="loginBtn" 
+                    type="submit" value="Submit" onclick="login()">
             </form> 
         </div>
     </body>
