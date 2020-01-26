@@ -18,10 +18,8 @@ def register_user(username, password):
     if count == 0:
         df.to_sql('Players' ,con=engine, if_exists='append', index=False)
         PlayerID = get_PlayerID(username)
-        session['username'] = username
-        session['PlayerID'] = PlayerID
-        return message_format(f"Created {username}")
-    else: return message_format(f"{username} already exists.")
+        return int(PlayerID)
+    else: return False
 
 def login_user(username, password):
     PlayerID = get_PlayerID(username)

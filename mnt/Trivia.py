@@ -44,13 +44,17 @@ class Trivia(Game):
       2: self.end
     }
   
-    questions = pd.read_sql("SELECT TOP 3 * FROM TRIVIA_ALL ORDER_BY_RAND()", self.engine)
+    questions = pd.read_sql("""
+        SELECT question, correct_answer, incorrect_answer
+        FROM Trivia_questions
+        ORDER BY RAND() LIMIT 3""",
+        self.engine)
 
     self.data["questions"] = map(
       lambda q : {
-        "question": q[1]["Question"],
-        "correct": q[1]["Correct Answer"],
-        "incorrect": q[1]["Incorrect Answer"].split(";"),
+        "question": q[1]["question"],
+        "correct": q[1]["correct_answer"],
+        "incorrect": q[1]["incorrect_answer"].split(";"),
       },
       questions.iterrows()
     )
@@ -67,7 +71,7 @@ class Trivia(Game):
     d.update(self.stages[self.currentStage](username))
     return d
 
-  def post_info(self, data : dict, username=data['username']):
+  def post_info(self, data : dict, username):
     if self.currentStage == 0:
       self.currentStage += 1
       return True
