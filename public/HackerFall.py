@@ -54,7 +54,6 @@ class HackerFall(Game):
         self.data["votes"] = []
         self.currentStage += 1
         return d
-    d.update(self.stages[self.currentStage](username))
     return d
 
   def post_info(self, data : dict, username):
@@ -62,7 +61,7 @@ class HackerFall(Game):
       self.currentStage += 1
       return True
     if username not in self.data["votes"]:
-      self.data["votes"][username] = data["vote"]
+      self.data["votes"][username] = data["buttonText"]
       return True
     return False
 
