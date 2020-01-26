@@ -9,6 +9,7 @@ from sql import engine, sql_value
 from passlib.hash import sha256_crypt
 import pandas as pd
 from flask import session
+#  from flask_login import current_user
 
 def register_user(username, password):
     p = sha256_crypt.encrypt(password)
@@ -48,4 +49,6 @@ def dest_format(dest):
     return out
 
 def logged_in():
-    return 'PersonID' in session
+    print('logged_in:',session)
+    #  print(current_user)
+    return 'PlayerID' in session

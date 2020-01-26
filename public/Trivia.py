@@ -4,11 +4,11 @@ from urllib.parse import unquote
 from random import shuffle
 
 class Game:
-  def __init__(self, engine, key):
+  def __init__(self, engine, key, data):
     self.stages = {}
     self.players = {}
     self.max_players = 8
-    self.data = {}
+    self.data = data
     self.engine = engine
     self.currentStage = 0
     self.key = key
@@ -37,41 +37,52 @@ class Game:
 
 class Trivia(Game):
   def start(self):
-    self.stages = {
-      1: self.getVotes,
-      2: self.end
-    }
+    self.stages = {}
+    for i in range(int(self.data["numRounds"])):
+      self.stages[i + 1] = self.getVotes
+
+    self.stages[len(self.stages) + 1] = self.end
+
     self.data["votes"]  = {}
     self.data["scores"]  = {}
-    questions = pd.read_sql("""
+    questions = pd.read_sql(f"""
         SELECT question, correct_answer, incorrect_answers
         FROM Trivia_questions
-        ORDER BY RAND() LIMIT 3""",
+        ORDER BY RAND() LIMIT {self.data['numRounds']}""",
         self.engine)
 
     self.data["questions"] = list(map(
       lambda q : {
         "question": unquote(q[1]["question"]),
         "correct": unquote(q[1]["correct_answer"]),
-        "incorrect": unquote(q[1]["incorrect_answers"]).split(";"),
+        "answer_choices": ([q[1]["correct_answer"]] + q[1]["incorrect_answers"].split(';'))
       },
       questions.iterrows()
     ))
+    for rnd in self.data["questions"]:
+        shuffle(rnd["answer_choices"])
     self.data["question_num"] = 0
-
+    print(self.data)
+    
   def get_info(self, username):
     d = self.game_state
     if self.currentStage == 0:
       d.update({'waiting_for_players':True})
       return d
+    print('votes:',self.data["votes"])
     if len(self.data["votes"]) >= len(self.players):
       self.update_scores()
-      self.data["votes"] = []
+      self.data["votes"] = {}
       self.currentStage += 1
+      self.data['question_num'] += 1
+      #  del self.data['all_buttons']
+      print('next stage')
     d.update(self.stages[self.currentStage](username))
     return d
 
   def post_info(self, data : dict, username):
+    print('self.data:',self.data)
+    print('data:',data)
     if self.currentStage == 0:
       for player in self.players: self.data['scores'][player] = 0
       self.currentStage += 1
@@ -84,21 +95,14 @@ class Trivia(Game):
   def update_scores(self):
     for player, answer in self.data["votes"].items():
       if answer == self.data["questions"][self.data["question_num"]]["correct"]:
-        self.data["scores"][player] = self.data["scores"].get(player, 0) + self.data["question_num"] + 1
+        self.data["scores"][player] = self.data["scores"].get(player, 0) + 1
     return None
 
   def getVotes(self, username):
-    if "all_buttons" not in self.data:
-      all_buttons = (
-          [self.data["questions"][self.data["question_num"]]["correct"]] +
-          self.data["questions"][self.data["question_num"]]["incorrect"]
-      )
-      shuffle(all_buttons)
-      self.data["all_buttons"] = all_buttons
-
     d = {
       "message": self.data["questions"][self.data["question_num"]]["question"],
-      "buttons": self.data['all_buttons'],
+      "buttons": self.data["questions"][self.data["question_num"]]["answer_choices"],
+      "currentStage": self.currentStage,
     }
     return d
 

@@ -22,7 +22,7 @@ body {
     text-align: center;
     overflow: hidden;
     position: fixed;
-    top: 0;
+    top: -100em;
     font-size: 1.5em;
     background-color: var(--color2);
     box-shadow: 0 5px 2px #000;
@@ -33,8 +33,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    max-height: 100vh;
     height: 100%;
-    margin-top: calc(32px + 1.5em);
 }
 
 .item {

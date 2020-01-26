@@ -5,5 +5,6 @@ RUN pip install pymysql
 RUN pip install mysqlclient
 RUN pip install passlib
 RUN pip install pandas
+RUN pip install flask-login
 WORKDIR /mnt
 ADD . /root/

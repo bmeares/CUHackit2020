@@ -22,7 +22,7 @@ current_games = {}
 
 @app.route('/')
 def index():
-    print(logged_in)
+    print(logged_in())
     print(session)
     if logged_in(): return render_static('/hostOrJoin')
 
@@ -95,9 +95,11 @@ def new_game():
     #  data = request.json
     username = session['username']
     game_type = request.form['game']
+    print(request.form)
+    numRounds = int(request.form['numRounds'])
     key = get_key(current_games)
     if game_type in games:
-        current_games[key] = games[game_type](engine, key)
+        current_games[key] = games[game_type](engine, key, {"numRounds": request.form["numRounds"]})
         session['key'] = key
         return dest_format('/hostGame')
     else: return message_format('Invalid game type')
@@ -116,6 +118,15 @@ def join_game():
         return dest_format('/phoneGame')
     else: return message_format('Invalid game type')
 
+@app.route('/whoami', methods=['GET'])
+def whoami():
+    username = session['username']
+    return message_format(username)
+
+@app.route('/current_game', methods=['GET'])
+def current_game():
+    key = session['key']
+    return message_format(key)
 
 
 if __name__== '__main__':

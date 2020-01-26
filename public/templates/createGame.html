@@ -3,6 +3,7 @@
     <head>
       <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
         <script src="{{ url_for('static', filename='scripts/users.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Create Game | Hackbox</title>
@@ -15,7 +16,10 @@
         </div>
 
         <div id="centerContent">
-          <button id="gamebtn" onclick="createGame()">Create Game</button>
+	  <p>Number of questions:</p>
+	  <input type="number" id="numRounds" name="numRounds" value="8">
+          <button id="gamebtn" onclick="createGame(0)">Create Trivia Game</button>
+          <button id="gamebtn" onclick="createGame(1)">Create HackerFall Game</button>
 <!--
             <h2>Enter your game ID:</h2>
             <form class="item">

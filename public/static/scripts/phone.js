@@ -1,5 +1,6 @@
 let currentStage = 0;
-let nextStage = false;
+// let nextStage = false;
+let submitted = false;
 
 function pull() {
     $.ajax({
@@ -11,9 +12,10 @@ function pull() {
               return
             }
 
-            if (nextStage && data.currentStage == currentStage)
+            if (data.currentStage == currentStage && submitted)
                 return;
             else {
+                submitted = false;
                 currentStage = data.currentStage;
                 $("#userIn").empty();
                 $("#message").text(data.message);
@@ -53,7 +55,8 @@ function send(i) {
         url: '/info',
         data: data,
         success: function(data) {
-            nextStage = true;
+            // nextStage = true;
+            submitted = true;
             $('userIn').empty();
             json = JSON.parse(data);
             if (json.dest) window.location = json.dest;

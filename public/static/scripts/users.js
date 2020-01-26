@@ -41,11 +41,17 @@ function joinGame() {
     })
 }
 
-function createGame() {
+function createGame(i) {
+    let data = {game: "HackerFall", numRounds: 0}
+
+    if(i == 0) {
+      data = {game: "Trivia", numRounds: $("#numRounds").val()}
+    }
+
     $.ajax({
         type: 'POST',
         url: '/new_game',
-        data: {game: "Trivia"},
+        data: data,
         success: function(data) {
           json = JSON.parse(data);
           if (json.dest) window.location = json.dest;
