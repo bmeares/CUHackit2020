@@ -1,9 +1,9 @@
 :root {
-    --color0: #8DA7BE; /* pewter blue */
-    --color1: #554640; /* dark horse */
-    --color2: #CDE6F5; /* azureish white */
-    --color3: #87919E; /* roman silver */
-    --color4: #707078; /* nickel */
+    --color0: #E5F4E3; /* off white */
+    --color1: #5DA9E9; /* light blue */
+    --color2: #003F91; /* blue */
+    --color3: #FFFFFF; /* white */
+    --color4: #6D326D; /* accent */
 }
 
 html, body {
@@ -24,7 +24,7 @@ body {
     position: fixed;
     top: 0;
     font-size: 1.5em;
-    border-bottom: 2px solid var(--color1);
+    border-bottom: 2px solid var(--color2);
 }
 
 #centerContent {
@@ -47,14 +47,14 @@ body {
     margin: 0.7em 0;
     padding: 0.5em;
     font-size: 1.7em;
-    color: var(--color2);
+    color: var(--color3);
     border-radius: 10px;
 }
 
 .userBtn {
-    background-color: var(--color3);
+    background-color: var(--color4);
 }
 
 .userInfo {
-    background-color: var(--color4);
+    background-color: rgba(0, 0, 0, 50);
 }
