@@ -114,7 +114,3 @@ class Trivia(Game):
       "currentStage": self.currentStage,
     }
     return d
-    
-  def generateQuestions(self):
-     return
-
