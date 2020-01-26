@@ -10,9 +10,17 @@
 
     <body onload="start()">
 
+        <div id="topbar">
+            <h1 id="roomcode">[Room Code]</h1>
+            <h1><a href="/" style="text-decoration:none;color:inherit;">Hackbox</a></h1>
+        </div>
+
         <div id="container">
-            <h1 id="message"></h1>
-            <div id="sub"></div>
+            <div id="centerContent">
+                <h1 id="message" class="item"></h1>
+                <div id="sub" class="item"></div>
+                <button id="gameBtn" class="item" onclick="begin_game()">Begin Game</button>
+            </div>
         </div>
 
     </body>

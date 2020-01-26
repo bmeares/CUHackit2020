@@ -17,19 +17,19 @@ function pull() {
                 currentStage = data.currentStage;
                 $("#userIn").empty();
                 $("#message").text(data.message);
-                if ("input" in data) {
+                if (data.input) {
                     $("#userIn").append("<input type='text' id='inputText' placeholder='Your answer'>");
                     $("#userIn").append("<br>");
-                    $("#userIn").append("<button onclick='send('inputText')'>Submit</button>");
+                    $("#userIn").append("<button onclick=\"send('inputText')\">Submit</button>");
                 }
-                if ("buttons" in data) {
+                if (data.buttons) {
                     for (let i = 0; i < data.buttons.length; i++) {
                         $("#userIn").append("<button id='button" + i + "' onclick='send(" + i + ")'>" + data.buttons[i] + "</button>");
                     }
                 }
-                if ("table" in data) {
-                    $("#userIn").append("<p>" + data.table + "</p>");
-                    $("#userIn").append("<button onclick='send('exit')'>Exit</button>");
+                if (data.table) {
+                    $("#userIn").append("<p>" + JSON.stringify(data.table) + "</p>");
+                    $("#userIn").append("<button onclick=\"send('exit')\">Exit</button>");
                 }
             }
         }
@@ -54,6 +54,10 @@ function send(i) {
         data: data,
         success: function(data) {
             nextStage = true;
+            $('userIn').empty();
+            json = JSON.parse(data);
+            if (json.dest) window.location = json.dest;
+            else if (json.message) alert(json.message);
         }
     })
 }

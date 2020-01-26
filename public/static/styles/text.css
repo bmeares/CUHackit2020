@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Space+Mono|Work+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Space+Mono:400,700|Work+Sans&display=swap');
 
 :root {
-    --color0: #E5F4E3; /* off white */
+    --color0: #635D8B; /* off white */
     --color1: #5DA9E9; /* light blue */
     --color2: #003F91; /* blue */
     --color3: #FFFFFF; /* white */
@@ -14,6 +14,21 @@ h1 {
     margin: 0;
 }
 
+h1 #message {
+    font-size: 1em;
+}
+
+h2 {
+    font-family: 'Space Mono Bold', sans-serif;
+    color: var(--color1);
+    margin: 0;
+    font-size: 2.3em;
+}
+
 button {
+    font-family: 'Work Sans', sans-serif;
+}
+
+.userBtn, .userInfo {
     font-family: 'Work Sans', sans-serif;
 }

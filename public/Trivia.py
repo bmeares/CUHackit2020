@@ -1,5 +1,7 @@
 import pandas as pd
 import sqlalchemy 
+from urllib.parse import unquote
+from random import shuffle
 
 class Game:
   def __init__(self, engine, key):
@@ -39,21 +41,22 @@ class Trivia(Game):
       1: self.getVotes,
       2: self.end
     }
-  
+    self.data["votes"]  = {}
+    self.data["scores"]  = {}
     questions = pd.read_sql("""
         SELECT question, correct_answer, incorrect_answers
         FROM Trivia_questions
         ORDER BY RAND() LIMIT 3""",
         self.engine)
 
-    self.data["questions"] = map(
+    self.data["questions"] = list(map(
       lambda q : {
-        "question": q[1]["question"],
-        "correct": q[1]["correct_answer"],
-        "incorrect": q[1]["incorrect_answer"].split(";"),
+        "question": unquote(q[1]["question"]),
+        "correct": unquote(q[1]["correct_answer"]),
+        "incorrect": unquote(q[1]["incorrect_answers"]).split(";"),
       },
       questions.iterrows()
-    )
+    ))
     self.data["question_num"] = 0
 
   def get_info(self, username):
@@ -70,35 +73,41 @@ class Trivia(Game):
 
   def post_info(self, data : dict, username):
     if self.currentStage == 0:
+      for player in self.players: self.data['scores'][player] = 0
       self.currentStage += 1
       return True
     if username not in self.data["votes"]:
-      self.data["votes"][username] = data["vote"]
+      self.data["votes"][username] = data["buttonText"]
       return True
     return False
 
   def update_scores(self):
     for player, answer in self.data["votes"].items():
       if answer == self.data["questions"][self.data["question_num"]]["correct"]:
-        self.data["score"][player] = self.data["score"].get(player, 0) + self.data["question_num"] + 1
+        self.data["scores"][player] = self.data["scores"].get(player, 0) + self.data["question_num"] + 1
     return None
 
   def getVotes(self, username):
+    if "all_buttons" not in self.data:
+      all_buttons = (
+          [self.data["questions"][self.data["question_num"]]["correct"]] +
+          self.data["questions"][self.data["question_num"]]["incorrect"]
+      )
+      shuffle(all_buttons)
+      self.data["all_buttons"] = all_buttons
+
     d = {
       "message": self.data["questions"][self.data["question_num"]]["question"],
-      "buttons": (
-        [self.data["questions"][self.data["question_num"]]["correct"]] +
-        self.data["questions"][self.data["question_num"]]["incorrect"]
-      ),
+      "buttons": self.data['all_buttons'],
     }
     return d
 
-  def end(self):
+  def end(self, username):
     d = {
       "message": "WINNER: {0}".format(
         max(
-          self.data["scores"].getitems(),
-          key=(lambda x: max(x[1]))
+          self.data["scores"].items(),
+          key=(lambda x: x[1])
         )[0]
       ),
       "table": self.data["scores"],

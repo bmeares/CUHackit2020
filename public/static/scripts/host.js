@@ -1,5 +1,19 @@
 let currentStage = 0;
 
+function send(action){
+  $.ajax({
+    type: 'POST',
+    url: '/info',
+    data: {'exit': true},
+    success: function(data){
+      console.log(data);
+      json = JSON.parse(data);
+      if (json.dest) window.location = json.dest;
+      else if (json.message) alert(json.message);
+    }
+  });
+}
+
 function pull() {
     $.ajax({
         type: 'GET',
@@ -23,7 +37,7 @@ function pull() {
                 }
                 if (data.table) {
                     $("#sub").append("<p>" + data.table + "</p>");
-                    $("#sub").append("<button onclick='send('exit')'>Exit</button>");
+                    $("#sub").append("<button onclick=\"send('exit')\">Exit</button>");
                 }
             }
         }
@@ -32,4 +46,12 @@ function pull() {
 
 function start() {
     setInterval(pull, 1000);
+}
+
+function begin_game(){
+  $.ajax({
+    type: 'POST',
+    url: "/info",
+    data: {},
+  });
 }

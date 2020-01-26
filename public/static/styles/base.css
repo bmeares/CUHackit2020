@@ -1,5 +1,5 @@
 :root {
-    --color0: #E5F4E3; /* off white */
+    --color0: #635D8B; /* off white */
     --color1: #5DA9E9; /* light blue */
     --color2: #003F91; /* blue */
     --color3: #FFFFFF; /* white */
@@ -24,7 +24,8 @@ body {
     position: fixed;
     top: 0;
     font-size: 1.5em;
-    border-bottom: 2px solid var(--color2);
+    background-color: var(--color2);
+    box-shadow: 0 5px 2px #000;
 }
 
 #centerContent {
@@ -33,6 +34,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
+    margin-top: calc(32px + 1.5em);
 }
 
 .item {
@@ -43,18 +45,33 @@ body {
 }
 
 .userBtn, .userInfo {
-    width: 100%;
+    width: 90%;
     margin: 0.7em 0;
     padding: 0.5em;
     font-size: 1.7em;
     color: var(--color3);
     border-radius: 10px;
+    border: 0;
+    box-shadow: 5px 5px 2px #000;
 }
 
 .userBtn {
     background-color: var(--color4);
+    cursor: pointer;
 }
 
 .userInfo {
-    background-color: rgba(0, 0, 0, 50);
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#gameBtn {
+    width: 90%;
+    margin: 0.7em 0;
+    padding: 0.5em;
+    color: var(--color3);
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 5px 5px 2px #000;
+    background-color: var(--color4);
 }

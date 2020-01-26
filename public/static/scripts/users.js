@@ -7,7 +7,6 @@ function login() {
         url: '/login_user',
         data: $('form').serialize(),
         success: function(data) {
-          console.log(data);
           json = JSON.parse(data);
           if (json.dest) window.location = json.dest;
           else if (json.message) alert(json.message);

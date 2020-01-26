@@ -22,6 +22,8 @@ current_games = {}
 
 @app.route('/')
 def index():
+    print(logged_in)
+    print(session)
     if logged_in(): return render_static('/hostOrJoin')
 
     return render_template('index.html')
@@ -41,7 +43,8 @@ def render_static(page_name):
 def login():
     if logged_in(): return render_static('/hostOrJoin')
 
-    data = request.json
+    data = request.form
+    #  data = request.json
     username = request.form['username']
     password = request.form['password']
      
@@ -69,21 +72,27 @@ def register():
 @app.route('/info', methods=['GET', 'POST'])
 def info():
     #  if not logged_in(): return render_template('/index.html')
-    data = request.json
+    data = request.form
+    #  data = request.json
     key = session['key']
     username = session['username']
     if key in current_games:
         if request.method == "GET":
             return current_games[key].get_info(username)
         elif request.method == "POST":
-            return current_games[key].post_info(data, username)
+            if 'exit' in data:
+                return dest_format('/')
+            if current_games[key].post_info(data, username):
+                return message_format("Successfully submitted")
+            else: return message_format("Failed to submit")
     else:
         return message_format("Game not valid.")
 
 @app.route('/new_game', methods=['POST'])
 def new_game():
     if not logged_in(): render_static('/login')
-    data = request.json
+    data = request.form
+    #  data = request.json
     username = session['username']
     game_type = request.form['game']
     key = get_key(current_games)
