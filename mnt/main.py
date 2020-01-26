@@ -5,9 +5,9 @@
 
 """
 
-from flask import Flask, render_template, jsonify, request, session
+from flask import Flask, render_template, jsonify, request, session, redirect
 from config import Config
-from login import register_user
+from login import register_user, login_user, message_format
 app = Flask(__name__)
 
 @app.route('/')
@@ -23,13 +23,18 @@ def render_static(page_name):
 
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.json
-    session['username'] = data['username']
+    if 'PersonID' in session:
+        return redirect('gameID')
 
-    return f"{session}"
-    #  json = jsonify(request.get_json())
-    #  session['username'] = json['username']
-    #  print(session)
+    data = request.json
+    username = data['username']
+    password = data['password']
+    if PersonID := login_user(username, password):
+        session['username'] = username
+        session['PlayerID'] = PersonID
+        return message_format('Successfully logged in.')
+    else: return message_format('Incorrect password')
+    
 
 @app.route('/foo', methods=['POST', 'GET']) 
 def foo():
@@ -43,6 +48,12 @@ def register():
     password = data['password']
     session['username'] = data['username']
     return register_user(username, password)
+
+@app.route('/info', methods=['GET'])
+def info():
+    data = request.json
+    username = session['username']
+    return get_info(username)
 
 if __name__== '__main__':
     app.config.from_object(Config)
