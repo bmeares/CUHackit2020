@@ -39,3 +39,10 @@ def get_PlayerID(username):
 def message_format(msg):
     out = "{'message':'" + str(msg) + "'}"
     return out
+
+def dest_format(dest):
+    out = "{'dest':'" + str(dest) + "'}"
+    return out
+
+def logged_in():
+    return 'PersonID' in session
