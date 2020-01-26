@@ -39,6 +39,7 @@ class HackerFall(Game):
     self.data["hacker"] = choice(
       list(self.players.keys())
     )
+    self.data["votes"] = {}
 
   def get_info(self, username):
     d = self.game_state
@@ -52,6 +53,7 @@ class HackerFall(Game):
       if len(self.data["votes"]) >= len(self.players) - 1:
         self.data["votes"] = []
         self.currentStage += 1
+        return d
     d.update(self.stages[self.currentStage](username))
     return d
 
@@ -83,14 +85,16 @@ class HackerFall(Game):
     return d
 
   def end(self):
+    ratio = (
+      len([vote for user, vote in self.data["votes"].items() if vote == self.data["hacker"]]) /
+      (len(self.players) - 1)
+    )
+    if ratio > .5:
+      mess = f"Hacker {self.data['hacker']} wins!"
+    else:
+      mess = f"Team wins!"
     d = {
-      "message": "WINNER: {0}".format(
-        max(
-          self.data["scores"].getitems(),
-          key=(lambda x: max(x[1]))
-        )[0]
-      ),
-      "table": self.data["scores"],
+      "message": mess,
       "currentStage": self.currentStage,
     }
     return d
