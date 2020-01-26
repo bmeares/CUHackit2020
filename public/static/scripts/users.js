@@ -23,7 +23,6 @@ function register() {
         data: $('form').serialize(),
         success: function(data) {
           json = JSON.parse(data);
-          console.log(json);
           if (json.dest) window.location = json.dest;
           else if (json.message) alert(json.message);
         }

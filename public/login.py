@@ -18,12 +18,13 @@ def register_user(username, password):
     if count == 0:
         df.to_sql('Players' ,con=engine, if_exists='append', index=False)
         PlayerID = get_PlayerID(username)
+        if PlayerID is None: return None
         return int(PlayerID)
     else: return False
 
 def login_user(username, password):
     PlayerID = get_PlayerID(username)
-    if PlayerID is None: return message_format(f'{username} does not exist.')
+    if PlayerID is None: return None
     q = f"SELECT passwordHash from Players WHERE PlayerID = {PlayerID}"
     h = sql_value(q)
     if sha256_crypt.verify(str(password), str(h)):
@@ -33,7 +34,9 @@ def login_user(username, password):
 
 def get_PlayerID(username):
     q = f"SELECT playerID FROM Players WHERE username = '{username}' ORDER BY playerID ASC LIMIT 1"
-    PlayerID = sql_value(q)
+    try:
+        PlayerID = sql_value(q)
+    except: return None
     return PlayerID
 
 def message_format(msg):

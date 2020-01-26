@@ -13,6 +13,7 @@ engine = sqlalchemy.create_engine('mysql+pymysql://cuhackit2020:gurgle@inscribe.
 def sql_value(query):
     try:
         df = pd.read_sql_query(query, engine)
+        if len(df.index) == 0: return None
         out = df.iloc[0, 0]
     except:
         print('Error! Failed to execute query:')

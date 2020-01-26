@@ -44,25 +44,25 @@ def login():
     data = request.json
     username = request.form['username']
     password = request.form['password']
-    if PersonID := login_user(username, password):
-        session['username'] = username
-        session['PlayerID'] = PersonID
-        return dest_format("/hostOrJoin")
-        #  return redirect('phoneGame')
-        #  return message_format('Successfully logged in.')
-    else: return message_format('Incorrect password')
+     
+    if not (PersonID := login_user(username, password)):
+        return message_format(f'Login failed.')
+
+    session['username'] = username
+    session['PlayerID'] = PersonID
+    return dest_format("/hostOrJoin")
 
 @app.route('/register_user', methods=['POST']) 
 def register():
-    if logged_in(): return render_static('/hostOrJoin')
+    #  if logged_in(): return render_static('/hostOrJoin')
     #  data = request.json
     data = request.form
     username = data['username']
     password = data['password']
     if PlayerID := register_user(username, password):
         session['username'] = username
-        session['PlayerID'] = PersonID
-        return dest_format('hostOrJoin')
+        session['PlayerID'] = PlayerID
+        return dest_format('/hostOrJoin')
         #  return message_format(f'Successfully created user {username}')
     else: return message_format(f'Failed to create user {username}')
 
