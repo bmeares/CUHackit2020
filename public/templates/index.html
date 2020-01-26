@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
+        <title>Hackbox</title>
+    </head>
+
+    <body>
+        <div id="topbar">
+            <h1>Hackbox</h1>
+        </div>
+
+        <div id="centerContent">
+            <div class="item">
+                <button class="userBtn"
+                    onclick="window.location.href = 'login';">Log In</button>
+                <button class="userBtn"
+                    onclick="window.location.href = 'register';">Register</button>
+            </div>
+        </div>
+    </body>
+</html>
+

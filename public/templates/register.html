@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="styles/base.css">
-        <link rel="stylesheet" href="styles/text.css">
-        <script src="scripts/users.js"></script>
+    <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
+        <script src="{{ url_for('static', filename='scripts/users.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Register | Hackbox</title>
     </head>
@@ -24,9 +25,9 @@
                 <br>
                 <input class="userInfo" type="text" name="displayname" placeholder="Display name">
                 <br>
-                <input class="userBtn" id="registerBtn" 
+                <input class="userBtn" id="registerBtn"
                     type="submit" value="Submit" onclick="register()">
-            </form> 
+            </form>
         </div>
     </body>
 </html>
