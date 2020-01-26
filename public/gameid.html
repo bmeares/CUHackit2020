@@ -3,6 +3,8 @@
     <head>
         <link rel="stylesheet" href="styles/base.css">
         <link rel="stylesheet" href="styles/text.css">
+        <script src="scripts/users.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Game ID | Hackbox</title>
     </head>
 
@@ -14,10 +16,11 @@
 
         <div id="centerContent">
             <h2>Enter your game ID:</h2>
-            <form>
-                <input type="text" name="gameid" placeholder="Game ID">
+            <form class="item">
+                <input class="userInfo" type="text" name="gameid" placeholder="Game ID">
                 <br>
-                <input type="submit" value="Submit">
+                <input class="userBtn" id="gameidBtn" 
+                    type="submit" value="Submit" onclick="gameid()">
             </form> 
         </div>
     </body>

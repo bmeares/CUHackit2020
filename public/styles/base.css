@@ -1,9 +1,9 @@
 :root {
-    --color0: #F6F7EB;
-    --color1: #FFA916;
-    --color2: #6D676E;
-    --color3: #1B1B1E;
-    --color4: #96031A;
+    --color0: #8DA7BE; /* pewter blue */
+    --color1: #554640; /* dark horse */
+    --color2: #CDE6F5; /* azureish white */
+    --color3: #87919E; /* roman silver */
+    --color4: #707078; /* nickel */
 }
 
 html, body {
@@ -24,7 +24,7 @@ body {
     position: fixed;
     top: 0;
     font-size: 1.5em;
-    border-bottom: 2px solid var(--color3);
+    border-bottom: 2px solid var(--color1);
 }
 
 #centerContent {
@@ -47,7 +47,14 @@ body {
     margin: 0.7em 0;
     padding: 0.5em;
     font-size: 1.7em;
-    background-color: var(--color2);
-    color: var(--color1);
+    color: var(--color2);
     border-radius: 10px;
+}
+
+.userBtn {
+    background-color: var(--color3);
+}
+
+.userInfo {
+    background-color: var(--color4);
 }

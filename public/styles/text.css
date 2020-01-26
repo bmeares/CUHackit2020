@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Anton|Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Space+Mono|Work+Sans&display=swap');
 
 :root {
-    --color0: #F6F7EB;
-    --color1: #FFA916;
-    --color2: #6D676E;
-    --color3: #1B1B1E;
-    --color4: #96031A;
+    --color0: #8DA7BE; /* pewter blue */
+    --color1: #554640; /* dark horse */
+    --color2: #CDE6F5; /* azureish white */
+    --color3: #87919E; /* roman silver */
+    --color4: #707078; /* nickel */
 }
 
 h1 {
-    font-family: 'Anton', sans-serif;
-    color: var(--color3);
+    font-family: 'Space Mono', sans-serif;
+    color: var(--color1);
     margin: 0;
 }
 
 button {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Work Sans', sans-serif;
 }
