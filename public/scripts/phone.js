@@ -24,7 +24,7 @@ function pull() {
                 }
                 if ("table" in data) {
                     $("#userIn").append("<p>" + data.table + "</p>");
-                    $("#userIn").append("<button onclick='exit()'>Exit</button>");
+                    $("#userIn").append("<button onclick='send('exit')'>Exit</button>");
                 }
             }
         }
@@ -55,15 +55,4 @@ function send(i) {
 
 function start() {
     setInterval(pull, 1000);
-}
-
-function exit() {
-    $.ajax({
-        type: 'POST',
-        url: '',
-        data: {exit: true},
-        success: function(data) {
-            nextStage = true;
-        }
-    })
 }
