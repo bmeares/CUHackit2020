@@ -5,7 +5,7 @@
 
 """
 
-from flask import Flask, render_template, jsonify, request, session, redirect
+from flask import Flask, render_template, jsonify, request, session, redirect, send_from_directory
 from config import Config
 from login import register_user, login_user, message_format
 from Trivia import Trivia
@@ -21,14 +21,18 @@ current_games = {}
 
 @app.route('/')
 def index():
-    if 'username' in session:
-        username = session['username']
-        return f'Logged in as {username}'
-    return "Not logged in"
+    return render_template('index.html')
+    #  if 'username' in session:
+        #  username = session['username']
+        #  return f'Logged in as {username}'
+    #  return "Not logged in"
+
+
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):
-    return render_template('%s.html' % page_name)
+    #  return send_from_directory(app.config['RESULT_STATIC_PATH'], f"{page_name}.html")
+    return render_template(f'{page_name}.html')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -84,7 +88,7 @@ def new_game():
         current_games[key] = games[game_type](engine)
         session['key'] = key
         return redirect('')
-    else return message_format('Invalid game type')
+    else: return message_format('Invalid game type')
 
 @app.route('/join_game', methods=['POST'])
 def join_game():
@@ -92,9 +96,9 @@ def join_game():
     username = session['username']
     key = data["key"]
     if key in current_games:
-	session['key'] = key
+        session['key'] = key
         return redirect('')
-    else return message_format('Invalid game type')
+    else: return message_format('Invalid game type')
 
 
 
