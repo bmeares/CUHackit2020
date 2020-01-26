@@ -1,7 +1,7 @@
 function login() {
     $.ajax({
         type: 'POST',
-        url: '',
+        url: '/login',
         data: $('form').serialize(),
         success: function(data) {
             console.log(data);
@@ -12,7 +12,7 @@ function login() {
 function register() {
     $.ajax({
         type: 'POST',
-        url: '',
+        url: '/register',
         data: $('form').serialize(),
         success: function(data) {
             console.log(data);
@@ -20,11 +20,22 @@ function register() {
     })
 }
 
-function gameid() {
+function joinGame() {
     $.ajax({
         type: 'POST',
-        url: '',
+        url: '/join_game',
         data: $('form').serialize(),
+        success: function(data) {
+            console.log(data);
+        }
+    })
+}
+
+function createGame() {
+    $.ajax({
+        type: 'POST',
+        url: '/new_game',
+        data: {game: "Trivia"},
         success: function(data) {
             console.log(data);
         }
