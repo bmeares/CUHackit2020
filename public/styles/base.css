@@ -1,0 +1,53 @@
+:root {
+    --color0: #F6F7EB;
+    --color1: #FFA916;
+    --color2: #6D676E;
+    --color3: #1B1B1E;
+    --color4: #96031A;
+}
+
+html, body {
+    margin: 0;
+    height: 100vh;
+}
+
+body {
+    background-color: var(--color0);
+}
+
+#topbar {
+    margin: 0;
+    padding: 0.5em 0;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    font-size: 1.5em;
+    border-bottom: 2px solid var(--color3);
+}
+
+#centerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.item {
+    max-width: 50vw;
+    width: 20em;
+    text-align: center;
+    margin: 2em;
+}
+
+.userBtn, .userInfo {
+    width: 100%;
+    margin: 0.7em 0;
+    padding: 0.5em;
+    font-size: 1.7em;
+    background-color: var(--color2);
+    color: var(--color1);
+    border-radius: 10px;
+}
