@@ -1,4 +1,5 @@
 function login() {
+  console.log('inside login');
     $.ajax({
         type: 'POST',
         url: '/login',

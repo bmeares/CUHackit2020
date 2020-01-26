@@ -2,21 +2,16 @@ import pandas as pd
 import sqlalchemy 
 
 class Game:
-  def __init__(self, engine):
+  def __init__(self, engine, key):
     self.stages = {}
     self.players = {}
     self.max_players = 8
     self.data = {}
     self.engine = engine
     self.currentStage = 0
+    self.key = key
 
     self.start()
-
-  @property
-  def game_state(self):
-    return {
-      "players": len(self.players),
-    }
 
   def add_player(self, username):
     if self.currentStage == 0 and len(self.players) < self.max_players:
@@ -34,6 +29,7 @@ class Game:
   def game_state(self):
     return {
       "players": len(self.players),
+      "key": self.key,
     }
 
 
@@ -45,7 +41,7 @@ class Trivia(Game):
     }
   
     questions = pd.read_sql("""
-        SELECT question, correct_answer, incorrect_answer
+        SELECT question, correct_answer, incorrect_answers
         FROM Trivia_questions
         ORDER BY RAND() LIMIT 3""",
         self.engine)
@@ -61,9 +57,10 @@ class Trivia(Game):
     self.data["question_num"] = 0
 
   def get_info(self, username):
-    d = game_state
+    d = self.game_state
     if self.currentStage == 0:
-      return game_state
+      d.update({'waiting_for_players':True})
+      return d
     if len(self.data["votes"]) >= len(self.players):
       self.update_scores()
       self.data["votes"] = []

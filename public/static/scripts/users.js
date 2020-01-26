@@ -1,10 +1,18 @@
 function login() {
+    username = $("#username").val();
+    password = $("#password").val();
+
     $.ajax({
         type: 'POST',
-        url: '/login',
+        url: '/login_user',
         data: $('form').serialize(),
+        // data:{
+          // username: username,
+          // password: password
+        // },
         success: function(data) {
-            console.log(data);
+            // console.log(data);
+          window.location = data;
         }
     })
 }
@@ -12,10 +20,11 @@ function login() {
 function register() {
     $.ajax({
         type: 'POST',
-        url: '/register',
+        url: '/register_user',
         data: $('form').serialize(),
         success: function(data) {
             console.log(data);
+          window.location = data;
         }
     })
 }
@@ -27,6 +36,7 @@ function joinGame() {
         data: $('form').serialize(),
         success: function(data) {
             console.log(data);
+          window.location = data;
         }
     })
 }
@@ -38,6 +48,8 @@ function createGame() {
         data: {game: "Trivia"},
         success: function(data) {
             console.log(data);
+          console.log('oy m8');
+          window.location = data;
         }
     })
 }

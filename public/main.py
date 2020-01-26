@@ -10,6 +10,7 @@ from config import Config
 from login import register_user, login_user, message_format
 from Trivia import Trivia
 from get_key import get_key
+from sql import engine
 app = Flask(__name__)
 
 ### possible games
@@ -21,6 +22,9 @@ current_games = {}
 
 @app.route('/')
 def index():
+    if 'PersonID' in session:
+        return redirect('/hostOrJoin')
+
     return render_template('index.html')
     #  if 'username' in session:
         #  username = session['username']
@@ -34,18 +38,20 @@ def render_static(page_name):
     #  return send_from_directory(app.config['RESULT_STATIC_PATH'], f"{page_name}.html")
     return render_template(f'{page_name}.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login_user', methods=['POST'])
 def login():
     if 'PersonID' in session:
-        return redirect('gameID')
+        return redirect('hostOrJoin')
 
     data = request.json
-    username = data['username']
-    password = data['password']
+    username = request.form['username']
+    password = request.form['password']
     if PersonID := login_user(username, password):
         session['username'] = username
         session['PlayerID'] = PersonID
-        return message_format('Successfully logged in.')
+        return "/hostOrJoin"
+        #  return redirect('phoneGame')
+        #  return message_format('Successfully logged in.')
     else: return message_format('Incorrect password')
 
 
@@ -54,7 +60,7 @@ def foo():
     data = request.json
     return jsonify(data)
 
-@app.route('/register', methods=['POST']) 
+@app.route('/register_user', methods=['POST']) 
 def register():
     data = request.json
     username = data['username']
@@ -82,12 +88,12 @@ def info():
 def new_game():
     data = request.json
     username = session['username']
-    game_type = data['game']
+    game_type = request.form['game']
     key = get_key(current_games)
     if game_type in games:
-        current_games[key] = games[game_type](engine)
+        current_games[key] = games[game_type](engine, key)
         session['key'] = key
-        return redirect('')
+        return '/hostGame'
     else: return message_format('Invalid game type')
 
 @app.route('/join_game', methods=['POST'])
