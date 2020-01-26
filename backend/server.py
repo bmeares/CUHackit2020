@@ -39,6 +39,13 @@ class Game:
   def end(self):
     return None
 
+  @property
+  def game_state(self):
+    return {
+      "players": len(self.players),
+    }
+
+
 class Trivia(Game):
   def start(self):
     self.stages = {
@@ -60,6 +67,8 @@ class Trivia(Game):
 
   def get_info(self, request):
     d = game_state
+    if self.currentStage == 0:
+      return game_state
     if len(self.data["votes"]) >= len(self.players):
       self.update_scores()
       self.data["votes"] = []
@@ -105,12 +114,6 @@ class Trivia(Game):
     }
     return d
     
-  @property
-  def game_state(self):
-    return {
-      "players": len(self.players),
-    }
-
   def generateQuestions(self):
      return
 
