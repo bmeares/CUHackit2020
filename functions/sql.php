@@ -1,5 +1,6 @@
 <?php
-include_once "../db.php";
+$root = "/home/master/CUHackit2020/";
+include_once "$root"."db.php";
 function exec_sql($query){
   global $db;
   $result = $db->query($query);

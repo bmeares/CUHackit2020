@@ -1,9 +1,9 @@
 <?php
 include "../../include.php";
 function user_exists($username){
-  $query = "IF EXISTS(SELECT username FROM Players WHERE username = '$username') SELECT 'exists' ELSE SELECT 'dne'";
-  $exists = sql_value($query);
-  if($exists == "exists") return True;
+  $q = "SELECT COUNT(username) FROM Players WHERE username = 'bmeares';";
+  $count = sql_value($q);
+  if($count > 0) return False;
   else return False;
 }
 
