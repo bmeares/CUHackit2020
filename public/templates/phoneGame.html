@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
+        <link rel="stylesheet" href"{{ url_for('static', filename='styles/games.css') }}">
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
         <script src="{{ url_for('static', filename='scripts/phone.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -17,8 +18,8 @@
 
         <div id="container">
             <div id="centerContent">
-                <h1 id="message"></h1>
-                <div id="userIn"></div>
+                <div id="message" class="item"></div>
+                <div id="userIn" class="item"></div>
             </div>
         </div>
 

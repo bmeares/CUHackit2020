@@ -3,11 +3,7 @@ import sqlalchemy
 
 from Trivia import Game
 from random import choice
-from datetime.datetime import now
 
-"""
-TODO: The end of the game needs changing.
-"""
 
 class HackerFall(Game):
   adjectives = [
@@ -28,16 +24,13 @@ class HackerFall(Game):
 
   def start(self):
     self.stages = {
-      1: self.vote,
+      1: self.getVotes,
       2: self.end
     }
   
     self.data["idea"] = (
       f"A {choice(self.adjectives)} {choice(self.nouns)} "
       f"for {choice(self.fors)}"
-    )
-    self.data["hacker"] = choice(
-      list(self.players.keys())
     )
     self.data["votes"] = {}
 
@@ -47,7 +40,7 @@ class HackerFall(Game):
       d.update({'waiting_for_players':True})
       return d
     if self.currentStage == 1:
-      d.update(self.get_votes(username))
+      d.update(self.getVotes(username))
       return d
     if self.currentStage == 2:
       if len(self.data["votes"]) >= len(self.players) - 1:
@@ -59,24 +52,32 @@ class HackerFall(Game):
   def post_info(self, data : dict, username):
     if self.currentStage == 0:
       self.currentStage += 1
+      self.data["hacker"] = choice(
+        list(self.players.keys())
+      )
+
       return True
-    if username not in self.data["votes"]:
-      self.data["votes"][username] = data["buttonText"]
-      return True
+    #  if username not in self.data["votes"]:
+      #  self.data["votes"][username] = data["buttonText"]
+      #  return True
     return False
 
   def getVotes(self, username):
     if username == self.data["hacker"]:
       d = {
-        "message": (
+        "phoneMessage": (
           f"You are the hacker. The idea could be "
           f"{self.adjectives} {self.nouns} for {self.fors}."
-        )
+        ),
+        "hostMessage" : "HOME MESSAGE",
+        "quit":True
       }
     else:
       d = {
-        "message": f"The idea is {self.data['idea']}.",
-        "buttons": []
+        "phoneMessage": f"The idea is {self.data['idea']}.",
+        "hostMessage": f"A {self.adjectives} {self.nouns} for {self.fors}",
+        "buttons": [],
+        "quit":True
       }
       for player in self.players:
         if player != username:
@@ -93,7 +94,8 @@ class HackerFall(Game):
     else:
       mess = f"Team wins!"
     d = {
-      "message": mess,
+      "hostMessage": mess,
+      "phoneMessage": mess,
       "currentStage": self.currentStage,
     }
     return d

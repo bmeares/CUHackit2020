@@ -1,0 +1,26 @@
+:root {
+    --color0: #635D8B; /* off white */
+    --color1: #5DA9E9; /* light blue */
+    --color2: #003F91; /* blue */
+    --color3: #FFFFFF; /* white */
+    --color4: #6D326D; /* accent */
+}
+
+#message {
+    
+}
+
+#sub {
+
+}
+
+#gameBtn {
+    width: 70%;
+    margin: 0.7em 0;
+    padding: 1em;
+    color: var(--color3);
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 5px 5px 2px #000;
+    background-color: var(--color4);
+}

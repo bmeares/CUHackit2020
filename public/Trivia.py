@@ -100,7 +100,8 @@ class Trivia(Game):
 
   def getVotes(self, username):
     d = {
-      "message": self.data["questions"][self.data["question_num"]]["question"],
+      "phoneMessage": self.data["questions"][self.data["question_num"]]["question"],
+      "hostMessage": self.data["questions"][self.data["question_num"]]["question"],
       "buttons": self.data["questions"][self.data["question_num"]]["answer_choices"],
       "currentStage": self.currentStage,
     }

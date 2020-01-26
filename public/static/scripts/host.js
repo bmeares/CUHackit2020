@@ -19,8 +19,10 @@ function pull() {
         type: 'GET',
         url: '/info',
         success: function(data) {
+            // displays number of players in lobby
             if (data.waiting_for_players){
-              $("#message").text(data.key);
+              $('#message').empty();
+              $("#message").append("<h1>Game ID: " + data.key + "</h1><br><h1>Number of players: " + data.players + "</h1>");
               return
             }
             if (data.currentStage == currentStage){
@@ -29,7 +31,7 @@ function pull() {
             else {
                 currentStage = data.currentStage;
                 $("#sub").empty();
-                $("#message").text(data.message);
+                $("#message").text(data.hostMessage);
                 if (data.buttons) {
                     for (let i = 0; i < data.buttons.length; i++) {
                         $("#sub").append("<div id='choice" + i + "'>" + data.buttons[i] + "</div>");

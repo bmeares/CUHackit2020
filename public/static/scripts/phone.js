@@ -8,7 +8,8 @@ function pull() {
         url: '/info',
         success: function(data) {
             if (data.waiting_for_players){
-              $("#message").text('Number of Players: ' + data.players);
+              $("#message").empty();
+              $("#message").append('<h1>Number of Players: ' + data.players + "</h1>");
               return
             }
 
@@ -18,7 +19,12 @@ function pull() {
                 submitted = false;
                 currentStage = data.currentStage;
                 $("#userIn").empty();
-                $("#message").text(data.message);
+                $("#message").empty();
+                $("#message").text(data.phoneMessage);
+		if (data.quit) {
+                    $("#userIn").append("<button onclick=\"send('exit')\">End game</button>");
+		    return
+		}
                 if (data.input) {
                     $("#userIn").append("<input type='text' id='inputText' placeholder='Your answer'>");
                     $("#userIn").append("<br>");
