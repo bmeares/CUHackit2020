@@ -9,7 +9,7 @@ function pull() {
         success: function(data) {
             if (data.waiting_for_players){
               $("#message").empty();
-              $("#message").append('<h1>Number of Players: ' + data.players + "</h1>");
+              $("#message").append('<h2>Number of Players: ' + data.players + "</h2>");
               return
             }
 
@@ -20,24 +20,24 @@ function pull() {
                 currentStage = data.currentStage;
                 $("#userIn").empty();
                 $("#message").empty();
-                $("#message").text(data.phoneMessage);
+                $("#message").append("<h2>" + data.phoneMessage + "</h2>";
 		if (data.quit) {
-                    $("#userIn").append("<button onclick=\"send('exit')\">End game</button>");
+                    $("#userIn").append("<button class='userBtn' onclick=\"send('exit')\">End game</button>");
 		    return
 		}
                 if (data.input) {
                     $("#userIn").append("<input type='text' id='inputText' placeholder='Your answer'>");
                     $("#userIn").append("<br>");
-                    $("#userIn").append("<button onclick=\"send('inputText')\">Submit</button>");
+                    $("#userIn").append("<button class='userBtn' onclick=\"send('inputText')\">Submit</button>");
                 }
                 if (data.buttons) {
                     for (let i = 0; i < data.buttons.length; i++) {
-                        $("#userIn").append("<button id='button" + i + "' onclick='send(" + i + ")'>" + data.buttons[i] + "</button>");
+                        $("#userIn").append("<button class='userBtn' id='button" + i + "' onclick='send(" + i + ")'>" + data.buttons[i] + "</button>");
                     }
                 }
                 if (data.table) {
-                    $("#userIn").append("<p>" + JSON.stringify(data.table) + "</p>");
-                    $("#userIn").append("<button onclick=\"send('exit')\">Exit</button>");
+                    $("#userIn").append("<p class='details'>" + JSON.stringify(data.table) + "</p>");
+                    $("#userIn").append("<button class='userBtn' onclick=\"send('exit')\">Exit</button>");
                 }
             }
         }

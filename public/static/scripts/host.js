@@ -22,7 +22,7 @@ function pull() {
             // displays number of players in lobby
             if (data.waiting_for_players){
               $('#message').empty();
-              $("#message").append("<h1>Game ID: " + data.key + "</h1><br><h1>Number of players: " + data.players + "</h1>");
+              $("#message").append("<h2>Game ID: " + data.key + "</h2><br><h2>Number of players: " + data.players + "</h2>");
               return
             }
             if (data.currentStage == currentStage){
@@ -31,15 +31,17 @@ function pull() {
             else {
                 currentStage = data.currentStage;
                 $("#sub").empty();
-                $("#message").text(data.hostMessage);
+              	$('#message').empty();
+                $("#message").append(data.hostMessage);
                 if (data.buttons) {
                     for (let i = 0; i < data.buttons.length; i++) {
-                        $("#sub").append("<div id='choice" + i + "'>" + data.buttons[i] + "</div>");
+                        $("#sub").append("<div class='choices' id='choice" + i + "'>" + data.buttons[i] + "</div>");
                     }
                 }
                 if (data.table) {
-                    $("#sub").append("<p>" + data.table + "</p>");
-                    $("#sub").append("<button onclick=\"send('exit')\">Exit</button>");
+		    console.log(data.table);
+                    $("#sub").append("<p class='details'>" + JSON.stringify(data.table) + "</p>");
+                    $("#sub").append("<button id='gameBtn' onclick=\"send('exit')\">Exit</button>");
                 }
             }
         }

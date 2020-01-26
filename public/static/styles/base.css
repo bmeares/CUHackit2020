@@ -9,6 +9,8 @@
 html, body {
     margin: 0;
     height: 100vh;
+
+    font-size: 2vh;
 }
 
 body {
@@ -22,7 +24,6 @@ body {
     text-align: center;
     overflow: hidden;
     position: fixed;
-    top: -100em;
     font-size: 1.5em;
     background-color: var(--color2);
     box-shadow: 0 5px 2px #000;

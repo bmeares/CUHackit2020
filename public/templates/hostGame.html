@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
-        <link rel="stylesheet" href"{{ url_for('static', filename='styles/games.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/game.css') }}">
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
         <script src="{{ url_for('static', filename='scripts/host.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -12,15 +12,14 @@
 
     <body onload="start()">
         <div id="topbar">
-            <h1 id="roomcode">[Room Code]</h1>
             <h1><a href="/" style="text-decoration:none;color:inherit;">Hackbox</a></h1>
         </div>
 
-        <div id="container">
-            <div id="centerContent">
-                <div id="message" class="item"></div>
-                <div id="sub" class="item"></div>
-                <button id="gameBtn" class="item" onclick="begin_game()">Begin Game</button>
+        <div id="centerContent">
+            <div class="item">
+                <div id="message"></div>
+                <div id="sub"></div>
+                <button id="gameBtn" onclick="begin_game()">Begin Game</button>
             </div>
         </div>
 

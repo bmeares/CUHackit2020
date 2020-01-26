@@ -7,19 +7,19 @@ from random import choice
 
 class HackerFall(Game):
   adjectives = [
-    "greedy",
-    "hacky",
-    "poorly-made"
-  ]
-  nouns = [
-    "machine learning algorithm",
-    "social network",
-    "video game"
+    "web",
+    "command line",
+    "native"
   ]
   fors = [
     "cats",
-    "programmers",
-    "children"
+    "hackers",
+    "banks"
+  ]
+  power = [
+    "blockchain",
+    "deep learning",
+    "VR"
   ]
 
   def start(self):
@@ -29,8 +29,9 @@ class HackerFall(Game):
     }
   
     self.data["idea"] = (
-      f"A {choice(self.adjectives)} {choice(self.nouns)} "
-      f"for {choice(self.fors)}"
+      f"a {choice(self.adjectives)} app "
+      f"for {choice(self.fors)} "
+      f"powered by {choice(self.power)}"
     )
     self.data["votes"] = {}
 
@@ -66,16 +67,16 @@ class HackerFall(Game):
     if username == self.data["hacker"]:
       d = {
         "phoneMessage": (
-          f"You are the hacker. The idea could be "
-          f"{self.adjectives} {self.nouns} for {self.fors}."
+          f"You are the hacker. The idea is a  "
+          f"{self.adjectives} app for {self.fors} that uses the power of {self.power}."
         ),
-        "hostMessage" : "HOME MESSAGE",
+        "hostMessage": f"We build a {self.adjectives} app for {self.fors} that uses the power of {self.power}",
         "quit":True
       }
     else:
       d = {
         "phoneMessage": f"The idea is {self.data['idea']}.",
-        "hostMessage": f"A {self.adjectives} {self.nouns} for {self.fors}",
+        "hostMessage": f"We build a {self.adjectives} app for {self.fors} that uses the power of {self.power}",
         "buttons": [],
         "quit":True
       }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/game.css') }}">
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
         <script src="{{ url_for('static', filename='scripts/users.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -11,21 +12,16 @@
 
     <body>
         <div id="topbar">
-            <h1 id="uname">[Username]</h1>
             <h1><a href="/" style="text-decoration:none;color:inherit;">Hackbox</a></h1>
         </div>
 
         <div id="centerContent">
-	  <p>Number of questions:</p>
-	  <input type="number" id="numRounds" name="numRounds" value="8">
-          <button id="gamebtn" onclick="createGame(0)">Create Trivia Game</button>
-          <button id="gamebtn" onclick="createGame(1)">Create HackerFall Game</button>
-<!--
-            <h2>Enter your game ID:</h2>
-            <form class="item">
-                <input class="userBtn" id="gameidBtn"
-                    type="submit" value="Submit" onclick="createGame()">
-            </form> -->
+            <div class="item">
+                <h2>Number of questions:</h2>
+                <input type="number" id="numRounds" name="numRounds" value="8">
+                <button class="userBtn" onclick="createGame(0)">Create Trivia Game</button>
+                <button class="userBtn" onclick="createGame(1)">Create HackerFall Game</button>
+            </div>
         </div>
     </body>
 </html>

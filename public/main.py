@@ -35,6 +35,11 @@ def index():
     #  return "Not logged in"
 
 
+@app.route('/logout', methods=['GET'])
+def logout():
+    print('logout')
+    #  del session['username']
+    #  del session['PlayerID']
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):

@@ -14,21 +14,22 @@ h1 {
     margin: 0;
 }
 
-h1 #message {
-    font-size: 1em;
-}
-
 h2 {
     font-family: 'Space Mono Bold', sans-serif;
     color: var(--color1);
-    margin: 0;
+    margin: 1em 0;
     font-size: 2.3em;
 }
 
-button {
+p, button, .userBtn, .userInfo, .choices #gameBtn {
     font-family: 'Work Sans', sans-serif;
 }
 
-.userBtn, .userInfo, #gameBtn {
+p {
+    color: var(--color3);
+    font-size: 1.5em;
+}
+
+#message, #sub {
     font-family: 'Work Sans', sans-serif;
 }
