@@ -6,13 +6,12 @@ function login() {
         type: 'POST',
         url: '/login_user',
         data: $('form').serialize(),
-        // data:{
-          // username: username,
-          // password: password
-        // },
         success: function(data) {
-            // console.log(data);
-          window.location = data;
+          console.log(data);
+          json = JSON.parse(data);
+          if (json.dest) window.location = json.dest;
+          else if (json.message) alert(json.message);
+          else console.log(json);
         }
     })
 }
@@ -23,8 +22,10 @@ function register() {
         url: '/register_user',
         data: $('form').serialize(),
         success: function(data) {
-            console.log(data);
-          window.location = data;
+          json = JSON.parse(data);
+          console.log(json);
+          if (json.dest) window.location = json.dest;
+          else if (json.message) alert(json.message);
         }
     })
 }
@@ -35,8 +36,9 @@ function joinGame() {
         url: '/join_game',
         data: $('form').serialize(),
         success: function(data) {
-            console.log(data);
-          window.location = data;
+          json = JSON.parse(data);
+          if (json.dest) window.location = json.dest;
+          else if (json.message) alert(json.message);
         }
     })
 }
@@ -47,9 +49,9 @@ function createGame() {
         url: '/new_game',
         data: {game: "Trivia"},
         success: function(data) {
-            console.log(data);
-          console.log('oy m8');
-          window.location = data;
+          json = JSON.parse(data);
+          if (json.dest) window.location = json.dest;
+          else if (json.message) alert(json.message);
         }
     })
 }

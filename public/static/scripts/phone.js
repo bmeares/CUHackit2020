@@ -4,14 +4,19 @@ let nextStage = false;
 function pull() {
     $.ajax({
         type: 'GET',
-        url: '',
+        url: '/info',
         success: function(data) {
+            if (data.waiting_for_players){
+              $("#message").text('Number of Players: ' + data.players);
+              return
+            }
+
             if (nextStage && data.currentStage == currentStage)
                 return;
             else {
                 currentStage = data.currentStage;
                 $("#userIn").empty();
-                $("#message").text("<p>" + data.message + "</p>");
+                $("#message").text(data.message);
                 if ("input" in data) {
                     $("#userIn").append("<input type='text' id='inputText' placeholder='Your answer'>");
                     $("#userIn").append("<br>");
@@ -45,7 +50,7 @@ function send(i) {
     }
     $.ajax({
         type: 'POST',
-        url: '',
+        url: '/info',
         data: data,
         success: function(data) {
             nextStage = true;
