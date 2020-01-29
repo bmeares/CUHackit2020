@@ -23,17 +23,16 @@ current_games = {}
 
 @app.route('/')
 def index():
-    print(logged_in())
-    print(session)
     if logged_in(): return render_static('/hostOrJoin')
-
-    return render_template('index.html')
+    return render_static('login')
+    #  return render_template('index.html')
 
 @app.route('/logout', methods=['GET'])
 def logout():
-    print('logout')
-    #  del session['username']
+    if 'username' in session: del session['username']
+    if 'key' in session: del session['key']
     #  del session['PlayerID']
+    return 'logout'
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):
@@ -47,17 +46,19 @@ def login():
     data = request.form
     #  data = request.json
     username = request.form['username']
-    password = request.form['password']
+    #  password = request.form['password']
      
-    if not (PersonID := login_user(username, password)):
-        return message_format(f'Login failed.')
+    #  if not (login_user(username, password)):
+        #  return message_format(f'Login failed.')
 
     session['username'] = username
-    session['PlayerID'] = PersonID
+    #  print(session)
+    #  session['PlayerID'] = PersonID
     return dest_format("/hostOrJoin")
 
 @app.route('/register_user', methods=['POST']) 
 def register():
+    return login()
     #  if logged_in(): return render_static('/hostOrJoin')
     #  data = request.json
     data = request.form
@@ -93,10 +94,8 @@ def info():
 def new_game():
     if not logged_in(): render_static('/login')
     data = request.form
-    #  data = request.json
     username = session['username']
     game_type = request.form['game']
-    print(request.form)
     numRounds = int(request.form['numRounds'])
     key = get_key(current_games)
     if game_type in games:
@@ -107,7 +106,6 @@ def new_game():
 
 @app.route('/join_game', methods=['POST'])
 def join_game():
-    #  data = request.json
     data = request.form
     username = session['username']
     key = data["gameid"]
@@ -124,13 +122,22 @@ def whoami():
     username = session['username']
     return message_format(username)
 
+@app.route('/players', methods=['GET'])
+def players():
+    if not logged_in(): render_static('/login')
+    if 'key' in session:
+        players = []
+        return message_format(str(list(current_games[session['key']].players)))
+        #  return current_games[session['key']].players
+    else: return message_format('Not in a game')
+
 @app.route('/current_game', methods=['GET'])
 def current_game():
     key = session['key']
     return message_format(key)
 
-def main():
-    app.config.from_object(Config)
-    app.run(host='0.0.0.0', debug=False, port=5000)
-if __name__== '__main__':
-    main()
+app.config.from_object(Config)
+app.logger.disabled = True
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=True, port=5000)

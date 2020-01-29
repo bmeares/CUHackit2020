@@ -1,4 +1,5 @@
 import pandas as pd
+import pandasql as psql
 import sqlalchemy 
 from urllib.parse import unquote
 from random import shuffle
@@ -45,11 +46,13 @@ class Trivia(Game):
 
     self.data["votes"]  = {}
     self.data["scores"]  = {}
-    questions = pd.read_sql(f"""
+    #  self.all_questions = pd.read_csv('questions.csv')
+    query = f"""
         SELECT question, correct_answer, incorrect_answers
         FROM Trivia_questions
-        ORDER BY RAND() LIMIT {self.data['numRounds']}""",
-        self.engine)
+        ORDER BY RAND() LIMIT {self.data['numRounds']}"""
+    
+    questions = pd.read_sql(query, self.engine)
 
     self.data["questions"] = list(map(
       lambda q : {
@@ -62,27 +65,27 @@ class Trivia(Game):
     for rnd in self.data["questions"]:
         shuffle(rnd["answer_choices"])
     self.data["question_num"] = 0
-    print(self.data)
+    #  print(self.data)
     
   def get_info(self, username):
     d = self.game_state
     if self.currentStage == 0:
       d.update({'waiting_for_players':True})
       return d
-    print('votes:',self.data["votes"])
+    #  print('votes:',self.data["votes"])
     if len(self.data["votes"]) >= len(self.players):
       self.update_scores()
       self.data["votes"] = {}
       self.currentStage += 1
       self.data['question_num'] += 1
       #  del self.data['all_buttons']
-      print('next stage')
+      #  print('next stage')
     d.update(self.stages[self.currentStage](username))
     return d
 
   def post_info(self, data : dict, username):
-    print('self.data:',self.data)
-    print('data:',data)
+    #  print('self.data:',self.data)
+    #  print('data:',data)
     if self.currentStage == 0:
       for player in self.players: self.data['scores'][player] = 0
       self.currentStage += 1

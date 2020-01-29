@@ -9,7 +9,6 @@ from sql import engine, sql_value
 from passlib.hash import sha256_crypt
 import pandas as pd
 from flask import session
-#  from flask_login import current_user
 
 def register_user(username, password):
     p = sha256_crypt.encrypt(password)
@@ -24,14 +23,15 @@ def register_user(username, password):
     else: return False
 
 def login_user(username, password):
-    PlayerID = get_PlayerID(username)
-    if PlayerID is None: return None
-    q = f"SELECT passwordHash from Players WHERE PlayerID = {PlayerID}"
-    h = sql_value(q)
-    if sha256_crypt.verify(str(password), str(h)):
+    return 1
+    #  PlayerID = get_PlayerID(username)
+    #  if PlayerID is None: return None
+    #  q = f"SELECT passwordHash from Players WHERE PlayerID = {PlayerID}"
+    #  h = sql_value(q)
+    #  if sha256_crypt.verify(str(password), str(h)):
         ### successully logged in
-        return int(PlayerID)
-    else: return False
+        #  return int(PlayerID)
+    #  else: return False
 
 def get_PlayerID(username):
     q = f"SELECT playerID FROM Players WHERE username = '{username}' ORDER BY playerID ASC LIMIT 1"
@@ -49,6 +49,4 @@ def dest_format(dest):
     return out
 
 def logged_in():
-    print('logged_in:',session)
-    #  print(current_user)
-    return 'PlayerID' in session
+    return 'username' in session
