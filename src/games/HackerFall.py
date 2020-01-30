@@ -1,11 +1,10 @@
 import pandas as pd
 import sqlalchemy
-
-from Trivia import Game
 from random import choice
 
+from .GameHandler import GameHandler
 
-class HackerFall(Game):
+class HackerFall(GameHandler):
   adjectives = [
     "web",
     "command line",
