@@ -1,6 +1,4 @@
 import pandas as pd
-#  import pandasql as psql
-import sqlalchemy 
 from urllib.parse import unquote
 from random import shuffle
 
@@ -17,46 +15,25 @@ class Trivia(GameHandler):
 
     self.data["votes"]  = {}
     self.data["scores"]  = {}
-    #  self.all_questions = pd.read_csv('questions.csv')
-    query = f"""
-        SELECT question, correct_answer, incorrect_answers
-        FROM Trivia_questions
-        ORDER BY RAND() LIMIT {self.data['numRounds']}"""
-    
-    questions = pd.read_sql(query, self.engine)
 
-    self.data["questions"] = list(map(
-      lambda q : {
-        "question": unquote(q[1]["question"]),
-        "correct": unquote(q[1]["correct_answer"]),
-        "answer_choices": ([q[1]["correct_answer"]] + q[1]["incorrect_answers"].split(';'))
-      },
-      questions.iterrows()
-    ))
-    for rnd in self.data["questions"]:
-        shuffle(rnd["answer_choices"])
+    self.get_questions()
+
     self.data["question_num"] = 0
-    #  print(self.data)
     
   def get_info(self, username):
     d = self.game_state
     if self.currentStage == 0:
       d.update({'waiting_for_players':True})
       return d
-    #  print('votes:',self.data["votes"])
     if len(self.data["votes"]) >= len(self.players):
       self.update_scores()
       self.data["votes"] = {}
       self.currentStage += 1
       self.data['question_num'] += 1
-      #  del self.data['all_buttons']
-      #  print('next stage')
     d.update(self.stages[self.currentStage](username))
     return d
 
   def post_info(self, data : dict, username):
-    #  print('self.data:',self.data)
-    #  print('data:',data)
     if self.currentStage == 0:
       for player in self.players: self.data['scores'][player] = 0
       self.currentStage += 1
@@ -93,3 +70,24 @@ class Trivia(GameHandler):
       "currentStage": self.currentStage,
     }
     return d
+
+  def get_questions(self):
+    q_dict = requests.get(
+      "https://opentdb.com/api.php?amount=3&difficulty=medium"
+    ).json()["results"]
+
+    self.data["questions"] = list(map(
+      lambda q : {
+        "question": unquote(
+          q["question"]
+        ),
+        "correct": unquote(q["correct_answer"]),
+        "answer_choices": (
+          [unquote(q["correct_answer"])] + [unquote(j) for j in q["incorrect_answers"]]
+        )
+      },
+      q_dict
+    ))
+    for x in self.data["questions"]:
+      shuffle(x["answer_choices"])
+    return None
