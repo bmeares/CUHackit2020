@@ -66,7 +66,8 @@ def register():
     data = request.form
     username = data['username']
     password = data['password']
-    if PlayerID := register_user(username, password):
+    PlayerID = register_user(username, password)
+    if PlayerID:
         session['username'] = username
         session['PlayerID'] = PlayerID
         return dest_format('/hostOrJoin')
