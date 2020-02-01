@@ -1,1 +1,1 @@
-web: python3 src/hackbox.py
+web: python3.7 src/hackbox.py
