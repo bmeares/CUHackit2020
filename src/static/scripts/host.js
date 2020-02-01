@@ -22,7 +22,11 @@ function pull() {
             // displays number of players in lobby
             if (data.waiting_for_players){
               $('#message').empty();
-              $("#message").append("<h2>Game ID: " + data.key + "</h2><br><h2>Number of players: " + data.players + "</h2>");
+              msg = `<h2>Game ID: ${data.key}</h2><br>
+              <h2>Number of Players: ${data.players}</h2>
+              `;
+
+              $("#message").append(msg);
               return
             }
             if (data.currentStage == currentStage){

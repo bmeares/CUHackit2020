@@ -5,12 +5,12 @@ from urllib.parse import unquote
 from random import shuffle
 
 class GameHandler:
-  def __init__(self, engine, key, data):
+  def __init__(self, key, data):
     self.stages = {}
     self.players = {}
     self.max_players = 8
     self.data = data
-    self.engine = engine
+    #  self.engine = engine
     self.currentStage = 0
     self.key = key
 

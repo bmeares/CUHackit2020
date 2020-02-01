@@ -101,7 +101,7 @@ def new_game():
     numRounds = int(request.form['numRounds'])
     key = get_key(current_games)
     if game_type in games:
-        current_games[key] = games[game_type](engine, key, {"numRounds": request.form["numRounds"]})
+        current_games[key] = games[game_type](key, {"numRounds": request.form["numRounds"]})
         session['key'] = key
         return dest_format('/hostGame')
     else: return message_format('Invalid game type')
