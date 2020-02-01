@@ -1,6 +1,5 @@
 import pandas as pd
 import pandasql as psql
-import sqlalchemy 
 from urllib.parse import unquote
 from random import shuffle
 
@@ -93,3 +92,24 @@ class Trivia(GameHandler):
       "currentStage": self.currentStage,
     }
     return d
+
+  def get_questions(self):
+    q_dict = requests.get(
+      "https://opentdb.com/api.php?amount=3&difficulty=medium"
+    ).json()["results"]
+
+    self.data["questions"] = list(map(
+      lambda q : {
+        "question": unquote(
+          q["question"]
+        ),
+        "correct": unquote(q["correct_answer"]),
+        "answer_choices": (
+          [unquote(q["correct_answer"])] + [unquote(j) for j in q["incorrect_answers"]]
+        )
+      },
+      q_dict
+    ))
+    for x in self.data["questions"]:
+      shuffle(x["answer_choices"])
+    return None
