@@ -1,5 +1,4 @@
 import pandas as pd
-import sqlalchemy
 from random import choice
 
 from .GameHandler import GameHandler
