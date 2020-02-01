@@ -2,7 +2,7 @@ import pandas as pd
 from urllib.parse import unquote
 from random import shuffle
 
-from games.GameHandler import GameHandler
+from .GameHandler import GameHandler
 
 
 class Trivia(GameHandler):

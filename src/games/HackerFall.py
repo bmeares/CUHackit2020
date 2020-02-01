@@ -1,7 +1,7 @@
 import pandas as pd
 from random import choice
 
-from games.GameHandler import GameHandler
+from .GameHandler import GameHandler
 
 class HackerFall(GameHandler):
   adjectives = [

@@ -8,11 +8,11 @@
 from flask import Flask, render_template, jsonify, request, session, redirect, send_from_directory
 #  from sql import engine
 
-from modules.config import Config
-from modules.login import register_user, login_user, message_format, dest_format, logged_in
-from modules.get_key import get_key
-from games.Trivia import Trivia
-from games.HackerFall import HackerFall
+from .modules.config import Config
+from .modules.login import register_user, login_user, message_format, dest_format, logged_in
+from .modules.get_key import get_key
+from .games.Trivia import Trivia
+from .games.HackerFall import HackerFall
 
 app = Flask(__name__)
 
