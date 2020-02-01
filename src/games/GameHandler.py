@@ -1,6 +1,4 @@
 import pandas as pd
-#  import pandasql as psql
-import sqlalchemy 
 from urllib.parse import unquote
 from random import shuffle
 
