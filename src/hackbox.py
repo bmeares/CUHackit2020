@@ -6,7 +6,7 @@
 """
 
 from flask import Flask, render_template, jsonify, request, session, redirect, send_from_directory
-from sql import engine
+#  from sql import engine
 
 from modules.config import Config
 from modules.login import register_user, login_user, message_format, dest_format, logged_in
