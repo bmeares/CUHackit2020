@@ -1,1 +1,1 @@
-web: python3 src/hackbox.py
+web: gunicorn src.hackbox:app
