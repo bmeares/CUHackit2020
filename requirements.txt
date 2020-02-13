@@ -1,0 +1,6 @@
+flask
+passlib
+requests
+pandas
+flask-login
+gunicorn

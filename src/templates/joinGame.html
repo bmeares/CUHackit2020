@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+        <script src="{{ url_for('static', filename='scripts/users.js') }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <title>Game ID | Hackbox</title>
+    </head>
+
+    <body>
+        <div id="topbar">
+            <h1><a href="/" style="text-decoration:none;color:inherit;">Hackbox</a></h1>
+        </div>
+
+
+        <div id="centerContent">
+            <h2>Enter your game ID:</h2>
+            <form class="item">
+                <input class="userInfo" type="text" name="gameid" placeholder="Game ID">
+                <br>
+                <input class="userBtn" id="gameidBtn"
+                    type="button" value="Submit" onclick="joinGame()">
+            </form>
+        </div>
+    </body>
+</html>
+
