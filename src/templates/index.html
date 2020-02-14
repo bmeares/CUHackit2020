@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles/text.css') }}">
-        <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
-        <title>Hackbox</title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" contents="width=device-width, initial-scale=1">
+    <link rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="stylesheet" href="../static/styles/style.css">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <title>Hackbox</title>
+</head>
 
-    <body>
-        <div id="topbar">
-            <h1>Hackbox</h1>
-        </div>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark justify-content-center p-0">
+        <span class="navbar-text display-2 text-light">Hackbox</span>
+    </nav>
 
-        <div id="centerContent">
-            <div class="item">
-                <img src="{{ url_for('static', filename='favicon.png') }}" id="logo">
-                <h2>Welcome to Hackbox!</h2>
-                <button class="userBtn"
-                    onclick="window.location.href = 'login';">Log In</button>
-<!--                <button class="userBtn"
-                    onclick="window.location.href = 'register';">Register</button>
--->
-            </div>
-        </div>
-    </body>
+    <div class="container-lg justify-content-center" id="vert-center">
+        <img src="{{ url_for('static', filename='favicon.png') }}">
+        <h1 class="display-3 my-5 text-center">Welcome to <br> Hackbox!</h1>
+        <button type="button" class="btn btn-primary btn-lg"
+            onclick="window.location.href = 'login';">Log In</button>
+    </div>
+</body>
 </html>
 
